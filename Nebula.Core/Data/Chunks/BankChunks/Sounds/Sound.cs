@@ -146,12 +146,12 @@ namespace Nebula.Core.Data.Chunks.BankChunks.Sounds
             writer.WriteUInt(Handle + 1);
             writer.WriteInt(Checksum);
             writer.WriteUInt(References);
-            //writer.WriteInt(Data.Length + (Flags["PlayFromDisk"] ? 0 : Name.Length * 2 + 2));
-            writer.WriteInt(Data.Length + (Name.Length * 2 + 2));
+            writer.WriteInt(Data.Length + (Flags["PlayFromDisk"] ? 0 : Name.Length * 2 + 2));
             writer.WriteUInt(Flags.Value);
             writer.WriteInt(Frequency);
             writer.WriteInt(Name.Length + 1);
-            writer.WriteYunicode(Name, true);
+            if (!Flags["PlayFromDisk"])
+              writer.WriteYunicode(Name, true);
             writer.WriteBytes(Data);
         }
 
